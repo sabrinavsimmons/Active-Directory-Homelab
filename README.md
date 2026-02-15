@@ -224,6 +224,7 @@ This project demonstrates skills applicable to:
 
 **Sabrina V. Simmons**  
 Computer Science Student (Cybersecurity Focus) | Southern New Hampshire University
+
 LinkedIn: [linkedin.com/in/sabrina-simmons-830095a1](https://www.linkedin.com/in/sabrina-simmons-830095a1)  
 Email: sabrinasimmons32509@yahoo.com
 
