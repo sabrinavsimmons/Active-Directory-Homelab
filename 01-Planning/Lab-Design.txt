@@ -1,0 +1,208 @@
+# Active Directory Homelab - Design Document
+Date Started: February 11, 2026
+
+## Domain Information
+Domain Name: sabrilab.local
+NetBIOS Name: SABRILAB
+
+## Network Configuration
+Network Segment: 192.168.10.0/24
+Gateway: 192.168.10.1
+Domain Controller IP: 192.168.10.10
+First Workstation IP: 192.168.10.20
+
+## Domain Controller (DC01)
+Operating System: Windows Server 2022
+CPU: 2 cores
+RAM: 4 GB
+Hard Disk: 60 GB
+IP Address: 192.168.10.10
+
+## First Workstation (WS01)
+Operating System: Windows 10/11 Pro
+CPU: 2 cores
+RAM: 4 GB
+Hard Disk: 40 GB
+IP Address: 192.168.10.20
+## Organizational Unit Structure
+
+## Organizational Unit Structure
+
+SABRILAB (domain root)
+│
+├── _CORPORATE
+│   ├── Users
+│   │   ├── IT-Department
+│   │   ├── Finance
+│   │   ├── HR
+│   │   └── Sales
+│   │
+│   ├── Computers
+│   │   ├── Workstations
+│   │   └── Servers
+│   │
+│   └── Groups
+│
+└── _DISABLED
+    ├── Disabled-Users
+    └── Disabled-Computers
+
+## User Accounts to Create
+
+### IT Department
+- Sarah.Chen (IT Director)
+- Michael.Rodriguez (Systems Administrator)  
+- Jennifer.Park (Help Desk Technician)
+
+### Finance
+- David.Thompson (CFO)
+- Lisa.Anderson (Accountant)
+
+### HR
+- Robert.Williams (HR Director)
+- Amanda.Davis (HR Specialist)
+
+### Sales
+- Christopher.Miller (Sales Director)
+- Jessica.Wilson (Sales Representative)
+- Daniel.Martinez (Sales Representative)
+
+### Administrative Accounts
+- Administrator (built-in domain admin - only for emergencies)
+- sabri.admin (your daily administrative account)
+
+## Progress Log
+
+### February 11, 2026 - Session 1: Foundation (4 hours)
+COMPLETED:
+- Created project folder structure and planning documentation
+- Downloaded Windows Server 2022 and Windows 11 Pro ISOs
+- Created AD lab network in Proxmox (vmbr2 - 192.168.10.0/24)
+- Built DC01 virtual machine (2 CPU, 4GB RAM, 60GB SSD)
+- Installed Windows Server 2022 Standard Evaluation
+- Set Administrator password
+- Installed VirtIO guest drivers for optimal performance
+- Renamed computer from random name to DC01
+- Configured static IP address: 192.168.10.10/24
+- Verified network configuration
+
+STATUS: DC01 ready for Active Directory installation
+
+### Next Steps (Session 2)
+- Install Active Directory Domain Services role
+- Promote DC01 to Domain Controller
+- Create sabrilab.local domain
+- Configure DNS
+- Create initial OU structure
+- Estimated time: 2-3 hours
+
+### February 12, 2026 - Session 2: Active Directory Configuration (3.5 hours)
+COMPLETED:
+- Installed Active Directory Domain Services role
+- Promoted DC01 to Domain Controller
+- Created sabrilab.local domain (NetBIOS: SABRILAB)
+- Configured DSRM password
+- Verified DC promotion successful
+- Created complete OU structure:
+  - _CORPORATE (Users, Computers, Groups)
+  - User departments: IT-Department, Finance, HR, Sales
+  - Computer types: Workstations, Servers
+  - _DISABLED (Disabled-Users, Disabled-Computers)
+- Created 10 domain user accounts across all departments:
+  - IT: Sarah Chen, Michael Rodriguez, Jennifer Park
+  - Finance: David Thompson, Lisa Anderson
+  - HR: Robert Williams, Amanda Davis
+  - Sales: Christopher Miller, Jessica Wilson, Daniel Martinez
+- Created administrative account: sabri.admin (added to Domain Admins)
+- Implemented first Group Policy Object: Security - Screen Lock Timeout
+  - 10-minute inactivity timeout
+  - Password-protected screen saver
+  - Applied to entire domain
+- Created WS01 workstation VM (Windows 11 Pro)
+- Resolved VirtIO driver installation issue during Windows setup
+
+STATUS: Domain fully operational with users and GPO; WS01 installing
+
+### Next Steps (Session 3)
+- Complete WS01 Windows 11 setup
+- Install VirtIO drivers on WS01
+- Configure static IP on WS01
+- Join WS01 to sabrilab.local domain
+- Test domain login with user accounts
+- Verify GPO application on workstation
+- Create additional GPOs (password policy, drive mapping, etc.)
+- Estimated time: 2 hours
+
+### February 13, 2026 - Session 3: Workstation Deployment & Domain Join (1.5 hours)
+COMPLETED:
+- Completed Windows 11 OOBE setup on WS01
+- Switched network from vmbr0 back to vmbr2 (AD lab network)
+- Configured static IP on WS01: 192.168.10.20
+- Verified network connectivity (successfully pinged DC01)
+- Successfully joined WS01 to sabrilab.local domain
+- Tested domain authentication (logged in as sarah.chen)
+- Verified Group Policy application using gpresult
+- Confirmed GPO "Security - Screen Lock Timeout" applied to domain users
+
+STATUS: Fully functional AD environment - DC, workstation, users, and policies working
+
+### Next Steps (Session 4)
+- Update WS01-Installation.md with domain join details
+- Create additional Group Policy Objects:
+  - Password policy
+  - Desktop wallpaper/branding
+  - Drive mapping
+  - Software restriction
+- Test login with other user accounts
+- Create documentation for help desk scenarios:
+  - Password reset procedure
+  - Account lockout troubleshooting
+  - Permission troubleshooting
+- Begin PowerShell automation scripts
+- Take screenshots for portfolio
+- Estimated time: 2-3 hours
+
+### February 15, 2026 - Session 4: PowerShell Automation (3 hours)
+COMPLETED:
+- Troubleshot file transfer methods between Mac, Proxmox, and DC01
+- Installed QEMU Guest Agent for improved VM management
+- Set up HTTP server on Proxmox for file transfer
+- Created PowerShell bulk user creation script:
+  - Reads user data from CSV file
+  - Generates usernames in firstname.lastname format
+  - Creates UPNs as username@sabrilab.local
+  - Assigns users to department-specific OUs dynamically
+  - Implements validation checks for duplicate UPNs and SamAccountNames
+  - Idempotent design (safe to re-run without creating duplicates)
+- Successfully created 4 additional test users via automation
+- Added debug output and skip logic for existing users
+- Documented troubleshooting process for PowerShell syntax and AD constraints
+
+STATUS: Project complete - fully functional AD environment with automation
+
+### Final Project Status
+
+**Total Time Investment:** ~15 hours across 4 sessions
+**Completion Date:** February 15, 2026
+
+**Deliverables:**
+- Fully operational Active Directory domain (sabrilab.local)
+- Domain Controller with DNS and Group Policy
+- Domain-joined workstation with verified authentication
+- 14 user accounts across 4 departments
+- 3 production Group Policy Objects
+- PowerShell automation script for bulk user creation
+- Complete project documentation
+
+**Skills Demonstrated:**
+- Active Directory administration
+- Windows Server configuration
+- DNS and DHCP concepts
+- Group Policy implementation
+- PowerShell scripting and automation
+- Virtualization (Proxmox)
+- Network configuration
+- Troubleshooting and debugging
+- Professional documentation practices
+
+**Ready for:** Portfolio presentation, GitHub upload, resume inclusion
