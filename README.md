@@ -222,11 +222,10 @@ This project demonstrates skills applicable to:
 
 ## 📞 Contact
 
-**Sabri**  
-Cybersecurity Student | Southern New Hampshire University  
-Portfolio: [Your Portfolio URL]  
-LinkedIn: [Your LinkedIn]  
-GitHub: [Your GitHub]
+**Sabrina V. Simmons**  
+Computer Science Student (Cybersecurity Focus) | Southern New Hampshire University
+LinkedIn: [linkedin.com/in/sabrina-simmons-830095a1](https://www.linkedin.com/in/sabrina-simmons-830095a1)  
+Email: sabrinasimmons32509@yahoo.com
 
 ---
 
